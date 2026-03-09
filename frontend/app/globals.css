@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-sans: system-ui;
+    --font-mono: monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 #18181b; /* lighter thumb */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 9999px;
+}
+}
+
+/* Ripple animation - pure CSS, performant */
+/* Ripple animation - more visible water-like */
+@keyframes ripple {
+  0% {
+    transform: scale(0.15);
+    opacity: 0.55;
+  }
+  40% {
+    opacity: 0.35;
+  }
+  70% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: scale(5.8);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--ripple-color);
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255,255,255,0.18) 0%,
+    transparent 60%
+  );
+  animation: ripple 6.2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  box-shadow: 
+    0 0 35px 8px var(--ripple-color),
+    inset 0 0 18px 4px var(--ripple-color);
+  will-change: transform, opacity;
+  pointer-events: none;
 }
