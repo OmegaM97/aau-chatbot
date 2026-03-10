@@ -13,8 +13,6 @@ def create_vector_db(chunks):
         persist_directory=DB_PATH
     )
 
-    vectordb.persist()
-
     return vectordb
 
 

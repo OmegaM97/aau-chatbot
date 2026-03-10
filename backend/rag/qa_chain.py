@@ -1,11 +1,21 @@
 import os
+from dotenv import load_dotenv
 from groq import Groq
 from rag.retriever import get_retriever
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+load_dotenv()
 
-def ask_question(question):
+api_key = os.getenv("GROQ_API_KEY")
+if not api_key:
+    raise ValueError("GROQ_API_KEY is not set in your environment or .env file.")
 
+client = Groq(api_key=api_key)
+
+
+def ask_question(question: str) -> str:
+    """
+    Ask a question to the RAG system and get a response from Groq.
+    """
     retriever = get_retriever()
 
     docs = retriever.invoke(question)
@@ -25,7 +35,7 @@ Answer:
 """
 
     response = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}]
     )
 
