@@ -12,7 +12,7 @@ app = FastAPI()
 DB_PATH = "chroma_db"
 
 origins = [
-    "http://localhost:3000",  
+    "https://aau-chatbot-liart.vercel.app",
 ]
 
 app.add_middleware(
