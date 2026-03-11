@@ -9,7 +9,6 @@ from api.chat import router as chat_router
 
 app = FastAPI()
 
-DB_PATH = "chroma_db"
 
 origins = [
     "https://aau-chatbot-liart.vercel.app",
@@ -22,12 +21,5 @@ app.add_middleware(
     allow_methods=["*"], 
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-def startup_event():
-    if not os.path.exists(DB_PATH):
-        raise RuntimeError("Vector DB not found. Please generate it locally.")
-    else:
-        print("Vector DB loaded.")
 
 app.include_router(chat_router, prefix="/api")
