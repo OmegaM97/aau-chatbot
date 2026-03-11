@@ -26,12 +26,8 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_event():
     if not os.path.exists(DB_PATH):
-        print("Creating embeddings...")
-        documents = load_documents()
-        chunks = split_documents(documents)
-        create_vector_db(chunks)
-        print("Embeddings created!")
+        raise RuntimeError("Vector DB not found. Please generate it locally.")
     else:
-        print("Vector DB already exists.")
+        print("Vector DB loaded.")
 
 app.include_router(chat_router, prefix="/api")
