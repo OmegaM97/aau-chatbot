@@ -45,7 +45,7 @@ export default function ChatContainer() {
     setLoading(true);
 
     try {
-      const res = await fetch('https://aau-chatbot-production.up.railway.app/api/chat', {
+      const res = await fetch('https://aau-chatbot-production-f26d.up.railway.app/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: content }),
